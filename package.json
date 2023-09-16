@@ -1,0 +1,24 @@
+{
+  "name": "node-haf",
+  "version": "0.0.1",
+  "description": "Node Home Assistant Framework",
+  "main": "src/index.mjs",
+  "scripts": {
+    "eslint": "./node_modules/.bin/eslint src/**/*.mjs --quiet",
+    "eslint-fix": "./node_modules/.bin/eslint src/**/*.mjs --fix"
+  },
+  "author": "Graham J",
+  "dependencies": {
+    "joi": "^17.10.1",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.48.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.28.1",
+    "pre-commit": "^1.2.2"
+  },
+  "pre-commit": [
+    "eslint"
+  ]
+}
