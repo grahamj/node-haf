@@ -1,5 +1,4 @@
 import Entity from '../base/Entity.mjs';
-import log from '../../lib/log.mjs';
 
 class Light extends Entity {
 
@@ -11,17 +10,11 @@ class Light extends Entity {
   }
 
   onTurnOn(handler) {
-    this.onHigh((light) => {
-      log.info(`Light ${this.identifier} turned on`);
-      handler(light);
-    });
+    this.onHigh(handler);
   }
 
   onTurnOff(handler) {
-    this.onLow((light) => {
-      log.info(`Light ${this.identifier} turned off`);
-      handler(light);
-    });
+    this.onLow(handler);
   }
 
 }

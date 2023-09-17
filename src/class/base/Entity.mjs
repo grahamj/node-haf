@@ -1,6 +1,5 @@
 import Joi from 'joi';
 import entityMap from '../../lib/entityMap.mjs';
-import log from '../../lib/log.mjs';
 
 const priv = Symbol('private');
 
@@ -46,7 +45,6 @@ class Entity {
         oldState: data.old_state,
       },
     });
-    log.info(`Entity ${this.identifier} ${this.previousState} -> ${this.state}`);
     this.handleStateChange();
   }
 

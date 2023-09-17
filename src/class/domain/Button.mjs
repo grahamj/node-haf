@@ -1,5 +1,4 @@
 import BooleanEntity from '../util/BooleanEntity.mjs';
-import log from '../../lib/log.mjs';
 
 class Button extends BooleanEntity {
 
@@ -11,17 +10,11 @@ class Button extends BooleanEntity {
   }
 
   onPress(handler) {
-    this.onHigh((button) => {
-      log.info(`Button ${button.identifier} pressed`);
-      handler(button);
-    });
+    this.onHigh(handler);
   }
 
   onRelease(handler) {
-    this.onLow((button) => {
-      log.info(`Button ${button.identifier} released`);
-      handler(button);
-    });
+    this.onLow(handler);
   }
 
 }

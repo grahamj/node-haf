@@ -1,20 +1,13 @@
 import BinarySensor from '../domain/BinarySensor.mjs';
-import log from '../../lib/log.mjs';
 
 class Motion extends BinarySensor {
 
   onMotion(handler) {
-    this.onHigh((sensor) => {
-      log.info(`Motion ${this.identifier} detected`);
-      handler(sensor);
-    });
+    this.onHigh(handler);
   }
 
   onClear(handler) {
-    this.onLow((sensor) => {
-      log.info(`Motion ${this.identifier} clear`);
-      handler(sensor);
-    });
+    this.onLow(handler);
   }
 
 }

@@ -98,7 +98,7 @@ class SocketConnection extends EventEmitter {
         this.emit('connection', 'reconnecting');
         this.connect();
       } catch(err) {
-        // log.error('HomeAssistant connection error:', err);
+        // noop
       }
     }, this.config.retryTimeout);
   }
