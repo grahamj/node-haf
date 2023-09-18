@@ -1,20 +1,11 @@
 import Joi from 'joi';
 
-const priv = Symbol('private');
-
 class Room {
 
   constructor(config = {}) {
-    this[priv] = {
-      motionSensors: new Map(),
-      lights: new Map(),
-      windows: new Map(),
-      doors: new Map(),
-      picos: new Map(),
-      alexas: new Map(),
-    };
     Object.assign(this, {
       identifier: undefined,
+      entityMap: new Map(),
     });
     this.configure(config);
   }
@@ -22,32 +13,16 @@ class Room {
   configure(config = {}) {
     Joi.assert(config, Joi.object({
       identifier: Joi.string().required(),
+      entities: Joi.array(),
     }));
     Object.assign(this, config);
+    if(config.entities) {
+      config.entities.forEach(this.addEntity.bind(this));
+    }
   }
 
-  addMotionSensor(sensor) {
-    this[priv].motionSensors.set(sensor.identifier, sensor);
-  }
-
-  addLight(light) {
-    this[priv].lights.set(light.identifier, light);
-  }
-
-  addWindow(window) {
-    this[priv].windows.set(window.identifier, window);
-  }
-
-  addDoor(door) {
-    this[priv].windows.set(door.identifier, door);
-  }
-
-  addPico(pico) {
-    this[priv].picos.set(pico.identifier, pico);
-  }
-
-  addAlexa(alexa) {
-    this[priv].alexas.set(alexa.identifier, alexa);
+  addEntity(entity) {
+    this.entityMap.set(entity.entityId, entity);
   }
 
 }

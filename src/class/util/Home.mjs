@@ -1,5 +1,3 @@
-import Joi from 'joi';
-
 class Home {
 
   constructor() {
@@ -8,6 +6,10 @@ class Home {
 
   addRoom(room) {
     this.rooms.set(room.identifier, room);
+  }
+
+  addRooms(rooms) {
+    rooms.forEach(this.addRoom.bind(this));
   }
 
 }

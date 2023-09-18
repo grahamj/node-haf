@@ -30,7 +30,11 @@ class Entity {
     }));
     Object.assign(this, config);
     this.entityId = `${this.domain}.${this.entityId}`;
-    if(!entityMap.has(this.entityId)) entityMap.set(this.entityId, this);
+    if(entityMap.has(this.entityId)) {
+      throw new Error(`Cannot instantiate more than one Entity with the same entityID (${this.entityId})`);
+    } else {
+      entityMap.set(this.entityId, this);
+    }
   }
 
   processStateChange(data) {
