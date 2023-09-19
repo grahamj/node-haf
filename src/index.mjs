@@ -1,3 +1,4 @@
+import connection from './lib/connection.mjs';
 import SocketConnection from './lib/SocketConnection.mjs';
 import entityMap from './lib/entityMap.mjs';
 import Entity from './class/base/Entity.mjs';
@@ -44,4 +45,6 @@ export default {
     Pico,
     Window,
   },
+  getConnection: connection.get,
+  setConnection: connection.set,
 };

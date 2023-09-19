@@ -18,7 +18,7 @@ class SocketConnection extends EventEmitter {
     Object.assign(this, {
       id: 1,
       config: {},
-      promises: {},
+      replyHandlers: {},
     });
     this.configure(Object.assign(defaultConfig, options));
   }
@@ -36,6 +36,7 @@ class SocketConnection extends EventEmitter {
 
       if(parsedData.type === 'auth_ok') {
         this.emit('connection', 'authenticated');
+        return;
       }
 
       if(parsedData.type === 'auth_required') {
@@ -48,17 +49,10 @@ class SocketConnection extends EventEmitter {
         throw new Error('Invalid password');
       }
 
-      const promise = this.promises[parsedData.id];
-
-      if(!promise) return false;
-
-      if(promise.timeout) {
-        clearTimeout(promise.timeout);
-      }
-
-      if(promise.callback) {
-        promise.callback(parsedData);
-      }
+      const { timeout, callback } = this.replyHandlers[parsedData.id] || {};
+      if(!callback) return false;
+      if(timeout) clearTimeout(timeout);
+      if(callback) callback(parsedData);
     });
 
     this.ws.on('open', () => {
@@ -103,7 +97,13 @@ class SocketConnection extends EventEmitter {
     }, this.config.retryTimeout);
   }
 
-  send(data, addId = true) {
+  async callService(options) {
+    const response = await this.send({ type: 'call_service', ...options });
+    if(response.success) return response.result;
+    throw Object.assign(new Error(), response.error);
+  }
+
+  async send(data, addId = true) {
     const newData = { ...data };
     if(addId) {
       newData.id = this.id;
@@ -111,9 +111,9 @@ class SocketConnection extends EventEmitter {
     }
 
     return new Promise((resolve, reject) => {
-      this.promises[newData.id] = {
-        timeout: setTimeout(() => {
-          return reject(new Error('No response received from home-assistant'));
+      this.replyHandlers[newData.id] = {
+        timeout: newData.id === undefined ? undefined : setTimeout(() => {
+          return reject(new Error(`No response received for ID ${newData.id}`));
         }, this.config.timeout),
         callback: resolve,
       };
@@ -121,15 +121,14 @@ class SocketConnection extends EventEmitter {
     });
   }
 
-  call(options) {
-    return this.send({ type: 'call_service', ...options });
-  }
-
   async subscribe(handlerFunc) {
     const data = { type: 'subscribe_events' };
-    const response = await this.send(data);
-    if(!response.success) throw new Error(data);
-    this.promises[response.id].callback = handlerFunc;
+    const response = await this.send(data, true, true);
+    if(!response.success) throw Object.assign(new Error(), response.error);
+    this.replyHandlers[response.id] = {
+      callback: handlerFunc,
+      timeout: undefined,
+    };
     return response;
   }
 
@@ -138,6 +137,12 @@ class SocketConnection extends EventEmitter {
       type: 'unsubscribe_events',
       subscription,
     });
+  }
+
+  async getStates() {
+    const response = await this.send({ type: 'get_states' });
+    if(!response.success) throw Object.assign(new Error(), response.error);
+    return response.result;
   }
 
 }

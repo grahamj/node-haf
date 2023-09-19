@@ -1,5 +1,6 @@
 import Joi from 'joi';
 import entityMap from '../../lib/entityMap.mjs';
+import connection from '../../lib/connection.mjs';
 
 const priv = Symbol('private');
 
@@ -19,22 +20,31 @@ class Entity {
       lastUpdate: undefined,
       event: undefined,
     });
-    this.configure(config);
-  }
-
-  configure(config = {}) {
     Joi.assert(config, Joi.object({
       identifier: Joi.string().required(),
       entityId: Joi.string().required(),
       domain: Joi.string().required(),
     }));
-    Object.assign(this, config);
-    this.entityId = `${this.domain}.${this.entityId}`;
+    const { identity, domain, entityId } = config;
+    Object.assign(this, {
+      identity,
+      domain,
+    });
+    this.entityId = `${domain}.${entityId}`;
     if(entityMap.has(this.entityId)) {
       throw new Error(`Cannot instantiate more than one Entity with the same entityID (${this.entityId})`);
     } else {
       entityMap.set(this.entityId, this);
     }
+  }
+
+  setState(data) {
+    Object.assign(this, {
+      state: data.state,
+      attributes: data.attributes,
+      lastChange: new Date(data.last_changed),
+      lastUpdate: new Date(data.last_updated),
+    });
   }
 
   processStateChange(data) {
@@ -58,6 +68,15 @@ class Entity {
 
   onStateChange(handler) {
     this[priv].stateChangeHandlers.push(handler);
+  }
+
+  async callService(options) {
+    const ha = connection.get();
+    const { domain } = this;
+    return ha.callService({
+      domain,
+      ...options,
+    });
   }
 }
 
