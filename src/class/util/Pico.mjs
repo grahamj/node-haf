@@ -1,14 +1,16 @@
 import Joi from 'joi';
+import Virtual from '../domain/Virtual.mjs';
 
 const priv = Symbol('private');
 
-class Pico {
+class Pico extends Virtual {
 
-  constructor(config = {}) {
+  constructor(config) {
+    super(config);
+    this.configure(config);
     this[priv] = {
       pressHandlers: [],
     };
-    this.configure(config);
   }
 
   configure(config = {}) {

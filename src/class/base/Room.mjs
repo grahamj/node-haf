@@ -22,7 +22,11 @@ class Room {
   }
 
   addEntity(entity) {
-    this.entityMap.set(entity.entityId, entity);
+    this.entityMap.set(entity.identifier, entity);
+  }
+
+  getEntity(identifier) {
+    return this.entityMap.get(identifier);
   }
 
 }

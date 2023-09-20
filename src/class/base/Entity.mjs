@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import entityMap from '../../lib/entityMap.mjs';
+import entities from '../../lib/entities.mjs';
 import connection from '../../lib/connection.mjs';
 
 const priv = Symbol('private');
@@ -24,17 +24,17 @@ class Entity {
       identifier: Joi.string().required(),
       entityId: Joi.string().required(),
       domain: Joi.string().required(),
-    }));
-    const { identity, domain, entityId } = config;
+    }).unknown());
+    const { identifier, domain, entityId } = config;
     Object.assign(this, {
-      identity,
+      identifier,
       domain,
     });
     this.entityId = `${domain}.${entityId}`;
-    if(entityMap.has(this.entityId)) {
+    if(entities.getByEntityId(this.entityId)) {
       throw new Error(`Cannot instantiate more than one Entity with the same entityID (${this.entityId})`);
     } else {
-      entityMap.set(this.entityId, this);
+      entities.add(this);
     }
   }
 

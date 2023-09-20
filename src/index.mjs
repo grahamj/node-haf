@@ -1,6 +1,6 @@
 import connection from './lib/connection.mjs';
 import SocketConnection from './lib/SocketConnection.mjs';
-import entityMap from './lib/entityMap.mjs';
+import entities from './lib/entities.mjs';
 import Entity from './class/base/Entity.mjs';
 import Room from './class/base/Room.mjs';
 import BinarySensor from './class/domain/BinarySensor.mjs';
@@ -21,7 +21,7 @@ import Window from './class/util/Window.mjs';
 
 export default {
   SocketConnection,
-  entityMap,
+  entities,
   base: {
     Entity,
     Room,
