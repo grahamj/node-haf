@@ -7,7 +7,6 @@ class BooleanEntity extends Entity {
   constructor(config) {
     super({
       ...config,
-      domain: 'binary_sensor',
     });
     this[priv] = {
       highHandlers: [],

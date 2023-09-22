@@ -5,6 +5,7 @@ import Entity from './class/base/Entity.mjs';
 import Room from './class/base/Room.mjs';
 import BinarySensor from './class/domain/BinarySensor.mjs';
 import Button from './class/domain/Button.mjs';
+import Counter from './class/domain/Counter.mjs';
 import InputBoolean from './class/domain/InputBoolean.mjs';
 import InputButton from './class/domain/InputButton.mjs';
 import InputText from './class/domain/InputText.mjs';
@@ -29,6 +30,7 @@ export default {
   domain: {
     BinarySensor,
     Button,
+    Counter,
     InputBoolean,
     InputButton,
     InputText,
