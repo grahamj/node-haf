@@ -1,4 +1,4 @@
-import BinarySensor from '../domain/BinarySensor.mjs';
+const BinarySensor = require('../domain/BinarySensor.js');
 
 class Window extends BinarySensor {
 
@@ -12,4 +12,4 @@ class Window extends BinarySensor {
 
 }
 
-export default Window;
+module.exports = Window;

@@ -6,7 +6,7 @@ const set = (conn) => {
   connection = conn;
 };
 
-export default {
+module.exports = {
   get,
   set,
 };

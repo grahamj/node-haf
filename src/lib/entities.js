@@ -1,4 +1,4 @@
-import Joi from 'joi';
+const Joi = require('joi');
 
 const identifierMap = new Map();
 const entityIdMap = new Map();
@@ -12,7 +12,7 @@ const add = (entity) => {
   entityIdMap.set(entity.entityId, entity);
 };
 
-export default {
+module.exports = {
   add,
   get: (identifier) => identifierMap.get(identifier),
   getByEntityId: (entityId) => entityIdMap.get(entityId),

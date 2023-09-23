@@ -1,4 +1,4 @@
-import Entity from '../base/Entity.mjs';
+const Entity = require('../base/Entity.js');
 
 class Sensor extends Entity {
 
@@ -11,4 +11,4 @@ class Sensor extends Entity {
 
 }
 
-export default Sensor;
+module.exports = Sensor;

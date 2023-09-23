@@ -1,4 +1,4 @@
-import Entity from '../util/BooleanEntity.mjs';
+const Entity = require('../util/BooleanEntity.js');
 
 class Counter extends Entity {
 
@@ -15,4 +15,4 @@ class Counter extends Entity {
 
 }
 
-export default Counter;
+module.exports = Counter;

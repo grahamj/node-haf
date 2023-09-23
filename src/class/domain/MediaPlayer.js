@@ -1,4 +1,4 @@
-import Entity from '../base/Entity.mjs';
+const Entity = require('../base/Entity.js');
 
 class MediaPlayer extends Entity {
 
@@ -18,4 +18,4 @@ class MediaPlayer extends Entity {
 
 }
 
-export default MediaPlayer;
+module.exports = MediaPlayer;

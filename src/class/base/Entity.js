@@ -1,6 +1,6 @@
-import Joi from 'joi';
-import entities from '../../lib/entities.mjs';
-import connection from '../../lib/connection.mjs';
+const Joi = require('joi');
+const entities = require('../../lib/entities.js');
+const connection = require('../../lib/connection.js');
 
 const priv = Symbol('private');
 
@@ -80,4 +80,4 @@ class Entity {
   }
 }
 
-export default Entity;
+module.exports = Entity;

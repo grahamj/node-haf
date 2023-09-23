@@ -1,4 +1,4 @@
-import BinarySensor from '../domain/BinarySensor.mjs';
+const BinarySensor = require('../domain/BinarySensor.js');
 
 class Door extends BinarySensor {
 
@@ -12,4 +12,4 @@ class Door extends BinarySensor {
 
 }
 
-export default Door;
+module.exports = Door;

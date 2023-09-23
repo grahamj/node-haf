@@ -1,4 +1,4 @@
-import BooleanEntity from '../util/BooleanEntity.mjs';
+const BooleanEntity = require('../util/BooleanEntity.js');
 
 class BinarySensor extends BooleanEntity {
 
@@ -11,4 +11,4 @@ class BinarySensor extends BooleanEntity {
 
 }
 
-export default BinarySensor;
+module.exports = BinarySensor;

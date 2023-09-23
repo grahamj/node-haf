@@ -1,5 +1,5 @@
-import EventEmitter from 'events';
-import Websocket from 'ws';
+const EventEmitter = require('events');
+const Websocket = require('ws');
 
 const defaultConfig = {
   host: 'localhost',
@@ -147,4 +147,4 @@ class SocketConnection extends EventEmitter {
 
 }
 
-export default SocketConnection;
+module.exports = SocketConnection;

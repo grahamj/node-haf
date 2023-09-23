@@ -1,5 +1,5 @@
-import Joi from 'joi';
-import Virtual from '../domain/Virtual.mjs';
+const Joi = require('joi');
+const Virtual = require('../domain/Virtual.js');
 
 const priv = Symbol('private');
 
@@ -38,4 +38,4 @@ class Pico extends Virtual {
 
 }
 
-export default Pico;
+module.exports = Pico;

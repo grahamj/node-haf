@@ -1,4 +1,4 @@
-import Entity from '../base/Entity.mjs';
+const Entity = require('../base/Entity.js');
 
 const priv = Symbol('private');
 
@@ -27,4 +27,4 @@ class InputButton extends Entity {
 
 }
 
-export default InputButton;
+module.exports = InputButton;

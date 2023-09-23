@@ -1,4 +1,4 @@
-import Entity from '../base/Entity.mjs';
+const Entity = require('../base/Entity.js');
 
 class Light extends Entity {
 
@@ -19,4 +19,4 @@ class Light extends Entity {
 
 }
 
-export default Light;
+module.exports = Light;

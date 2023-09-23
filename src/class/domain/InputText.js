@@ -1,4 +1,4 @@
-import Entity from '../base/Entity.mjs';
+const Entity = require('../base/Entity.js');
 
 class InputText extends Entity {
 
@@ -11,4 +11,4 @@ class InputText extends Entity {
 
 }
 
-export default InputText;
+module.exports = InputText;

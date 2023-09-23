@@ -1,4 +1,4 @@
-import BinarySensor from '../domain/BinarySensor.mjs';
+const BinarySensor = require('../domain/BinarySensor.js');
 
 class Motion extends BinarySensor {
 
@@ -12,4 +12,4 @@ class Motion extends BinarySensor {
 
 }
 
-export default Motion;
+module.exports = Motion;

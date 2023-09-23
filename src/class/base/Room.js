@@ -1,4 +1,4 @@
-import Joi from 'joi';
+const Joi = require('joi');
 
 class Room {
 
@@ -31,4 +31,4 @@ class Room {
 
 }
 
-export default Room;
+module.exports = Room;

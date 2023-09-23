@@ -1,4 +1,4 @@
-import BooleanEntity from '../util/BooleanEntity.mjs';
+const BooleanEntity = require('../util/BooleanEntity.js');
 
 class Button extends BooleanEntity {
 
@@ -19,4 +19,4 @@ class Button extends BooleanEntity {
 
 }
 
-export default Button;
+module.exports = Button;

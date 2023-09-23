@@ -1,4 +1,4 @@
-import Entity from '../base/Entity.mjs';
+const Entity = require('../base/Entity.js');
 
 class Virtual extends Entity {
 
@@ -11,4 +11,4 @@ class Virtual extends Entity {
 
 }
 
-export default Virtual;
+module.exports = Virtual;

@@ -1,4 +1,4 @@
-import MediaPlayer from '../domain/MediaPlayer.mjs';
+const MediaPlayer = require('../domain/MediaPlayer.js');
 
 class Alexa extends MediaPlayer {
 
@@ -15,4 +15,4 @@ class Alexa extends MediaPlayer {
 
 }
 
-export default Alexa;
+module.exports = Alexa;

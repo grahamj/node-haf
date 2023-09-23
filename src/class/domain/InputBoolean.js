@@ -1,4 +1,4 @@
-import BooleanEntity from '../util/BooleanEntity.mjs';
+const BooleanEntity = require('../util/BooleanEntity.js');
 
 class InputBoolean extends BooleanEntity {
 
@@ -19,4 +19,4 @@ class InputBoolean extends BooleanEntity {
 
 }
 
-export default InputBoolean;
+module.exports = InputBoolean;
