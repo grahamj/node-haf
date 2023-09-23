@@ -4,8 +4,8 @@
   "description": "Node Home Assistant Framework",
   "main": "src/index.mjs",
   "scripts": {
-    "eslint": "./node_modules/.bin/eslint src/**/*.mjs --quiet",
-    "eslint-fix": "./node_modules/.bin/eslint src/**/*.mjs --fix"
+    "eslint": "./node_modules/.bin/eslint src/**/*.js --quiet",
+    "eslint-fix": "./node_modules/.bin/eslint src/**/*.js --fix"
   },
   "author": "Graham J",
   "dependencies": {
