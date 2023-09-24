@@ -7,7 +7,8 @@
     "eslint": "./node_modules/.bin/eslint src/**/*.js --quiet",
     "eslint-fix": "./node_modules/.bin/eslint src/**/*.js --fix",
     "test": "npm run test_unit",
-    "test_unit": "./node_modules/mocha/bin/mocha.js $(find test/unit -name \"*.spec.js\")"
+    "test_unit": "./node_modules/mocha/bin/mocha.js $(find test/unit -name \"*.spec.js\")",
+    "update_snaps": "./node_modules/mocha/bin/mocha.js --update $(find test/unit -name \"*.spec.js\")"
   },
   "author": "Graham J",
   "dependencies": {

@@ -18,7 +18,7 @@ class SocketConnection extends EventEmitter {
     Object.assign(this, {
       id: 1,
       config: {},
-      replyHandlers: {},
+      replyHandlers: new Map(),
     });
     this.configure(Object.assign(defaultConfig, options));
   }
@@ -31,7 +31,7 @@ class SocketConnection extends EventEmitter {
   async connect() {
     this.ws = new Websocket(this.url);
 
-    this.ws.on('message', async (data) => {
+    this.ws.on('message', (data) => {
       const parsedData = JSON.parse(data);
 
       if(parsedData.type === 'auth_ok') {
@@ -49,7 +49,7 @@ class SocketConnection extends EventEmitter {
         throw new Error('Invalid password');
       }
 
-      const { timeout, callback } = this.replyHandlers[parsedData.id] || {};
+      const { timeout, callback } = this.replyHandlers.get(parsedData.id) || {};
       if(!callback) return false;
       if(timeout) clearTimeout(timeout);
       if(callback) callback(parsedData);
@@ -110,25 +110,28 @@ class SocketConnection extends EventEmitter {
       this.id++;
     }
 
-    return new Promise((resolve, reject) => {
-      this.replyHandlers[newData.id] = {
-        timeout: newData.id === undefined ? undefined : setTimeout(() => {
-          return reject(new Error(`No response received for ID ${newData.id}`));
-        }, this.config.timeout),
-        callback: resolve,
-      };
-      this.ws.send(JSON.stringify(newData));
-    });
+    if(newData.id) {
+      return new Promise((resolve, reject) => {
+        this.replyHandlers.set(newData.id, {
+          timeout: setTimeout(() => {
+            return reject(new Error(`No response received for ID ${newData.id}`));
+          }, this.config.timeout),
+          callback: resolve,
+        });
+        this.ws.send(JSON.stringify(newData));
+      });
+    }
+    this.ws.send(JSON.stringify(newData));
   }
 
   async subscribe(handlerFunc) {
     const data = { type: 'subscribe_events' };
     const response = await this.send(data, true, true);
     if(!response.success) throw Object.assign(new Error(), response.error);
-    this.replyHandlers[response.id] = {
+    this.replyHandlers.set(response.id, {
       callback: handlerFunc,
       timeout: undefined,
-    };
+    });
     return response;
   }
 

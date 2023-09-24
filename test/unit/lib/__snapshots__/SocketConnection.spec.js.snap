@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SocketConnection class connect() Passes url to Websocket constructor 1`] = `"ws://localhost:8123/api/websocket"`;
+
+exports[`SocketConnection class constructor() Configs with defaults 1`] = `
+Object {
+  "host": "localhost",
+  "password": "",
+  "port": 8123,
+  "protocol": "ws",
+  "retryTimeout": 5000,
+  "timeout": 5000,
+  "token": "",
+}
+`;
+
+exports[`SocketConnection class constructor() Injests config and builds url properly 1`] = `
+Object {
+  "host": "fancyhost",
+  "password": "",
+  "port": 123,
+  "protocol": "proto",
+  "retryTimeout": 456,
+  "timeout": 789,
+  "token": "",
+}
+`;
+
+exports[`SocketConnection class constructor() Injests config and builds url properly 2`] = `"proto://fancyhost:123/api/websocket"`;
