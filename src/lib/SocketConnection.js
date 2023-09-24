@@ -99,8 +99,8 @@ class SocketConnection extends EventEmitter {
 
   async callService(options) {
     const response = await this.send({ type: 'call_service', ...options });
-    if(response.success) return response.result;
-    throw Object.assign(new Error(), response.error);
+    if(!response.success) throw Object.assign(new Error(), response.error);
+    return response.result;
   }
 
   async send(data, addId = true) {

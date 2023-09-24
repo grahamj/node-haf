@@ -1,4 +1,4 @@
-const BooleanEntity = require('../util/BooleanEntity.js');
+const BooleanEntity = require('../base/BooleanEntity.js');
 
 class InputBoolean extends BooleanEntity {
 

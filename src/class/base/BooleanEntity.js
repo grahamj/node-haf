@@ -1,4 +1,4 @@
-const Entity = require('../base/Entity.js');
+const Entity = require('./Entity.js');
 
 const priv = Symbol('private');
 

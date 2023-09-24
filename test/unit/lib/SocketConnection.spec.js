@@ -154,6 +154,104 @@ describe('SocketConnection class', () => {
 
   });
 
+  describe('subscribe()', () => {
+
+    it('Rejects on send failure', async () => {
+      const connection = new SocketConnection();
+      const response = { success: false, error: { message: 'fancy error' } };
+      connection.send = sinon.stub().resolves(response);
+      try {
+        await connection.subscribe();
+      } catch(err) {
+        expect(err.message).to.equal(response.error.message);
+        return;
+      }
+      throw new Error('Should not succeed');
+    });
+
+    it('Saves response handler and returns response on success', async () => {
+      const connection = new SocketConnection();
+      const response = { id: 123, success: true };
+      connection.send = sinon.stub().resolves(response);
+      const handler = () => {};
+      const result = await connection.subscribe(handler);
+      expect(connection.send.firstCall.args).to.deep.equal([{ type: 'subscribe_events' }, true, true]);
+      expect(connection.replyHandlers.get(123).callback).to.equal(handler);
+      expect(result).to.deep.equal(response);
+    });
+
+  });
+
+  describe('unsubscribe()', () => {
+
+    it('Sends unsubscribe_events message and returns response', async () => {
+      const connection = new SocketConnection();
+      const response = { success: true };
+      connection.send = sinon.stub().resolves(response);
+      const subscription = { fancy: true };
+      const result = await connection.unsubscribe(subscription);
+      expect(connection.send.firstCall.args[0]).to.deep.equal({
+        type: 'unsubscribe_events',
+        subscription,
+      });
+      expect(result).to.equal(response);
+    });
+
+  });
+
+  describe('getStates()', () => {
+
+    it('Rejects on send failure', async () => {
+      const connection = new SocketConnection();
+      const response = { success: false, error: { message: 'fancy error' } };
+      connection.send = sinon.stub().resolves(response);
+      try {
+        await connection.getStates();
+      } catch(err) {
+        expect(err.message).to.equal(response.error.message);
+        return;
+      }
+      throw new Error('Should not succeed');
+    });
+
+    it('Sends get_states message and returns response', async () => {
+      const connection = new SocketConnection();
+      const response = { success: true, result: 'excellent' };
+      connection.send = sinon.stub().resolves(response);
+      const result = await connection.getStates();
+      expect(connection.send.firstCall.args[0]).to.deep.equal({ type: 'get_states' });
+      expect(result).to.equal('excellent');
+    });
+
+  });
+
+  describe('callService()', () => {
+
+    it('Rejects on send failure', async () => {
+      const connection = new SocketConnection();
+      const response = { success: false, error: { message: 'fancy error' } };
+      connection.send = sinon.stub().resolves(response);
+      try {
+        await connection.callService();
+      } catch(err) {
+        expect(err.message).to.equal(response.error.message);
+        return;
+      }
+      throw new Error('Should not succeed');
+    });
+
+    it('Sends get_states message and returns response', async () => {
+      const connection = new SocketConnection();
+      const response = { success: true, result: 'excellent' };
+      connection.send = sinon.stub().resolves(response);
+      const options = { fancy: true };
+      const result = await connection.callService(options);
+      expect(connection.send.firstCall.args[0]).to.deep.equal({ type: 'call_service', ...options });
+      expect(result).to.equal('excellent');
+    });
+
+  });
+
   describe('Websocket events', () => {
 
     describe('on message', () => {

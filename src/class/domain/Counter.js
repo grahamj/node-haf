@@ -1,4 +1,4 @@
-const Entity = require('../util/BooleanEntity.js');
+const Entity = require('../base/BooleanEntity.js');
 
 class Counter extends Entity {
 
