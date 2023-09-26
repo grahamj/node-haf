@@ -39,6 +39,12 @@ class Entity {
   }
 
   setState(data) {
+    Joi.assert(data, Joi.object({
+      state: Joi.string().required(),
+      attributes: Joi.object().required(),
+      last_changed: Joi.string().required(),
+      last_updated: Joi.string().required(),
+    }).unknown());
     Object.assign(this, {
       state: data.state,
       attributes: data.attributes,

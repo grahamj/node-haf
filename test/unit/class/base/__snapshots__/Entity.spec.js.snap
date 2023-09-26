@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Entity base class processStateChange() Assigns state and calls handleStateChange 1`] = `
+Object {
+  "attributes": Object {
+    "fancy": true,
+  },
+  "event": Object {
+    "newState": Object {
+      "attributes": Object {
+        "fancy": true,
+      },
+      "last_changed": "2023-09-24T21:58:06.307784+00:00",
+      "last_updated": "2023-09-25T01:06:00.214177+00:00",
+      "state": "fancy state",
+    },
+    "oldState": Object {
+      "state": "decrepit state",
+    },
+  },
+  "lastChange": 2023-09-24T21:58:06.307Z,
+  "lastUpdate": 2023-09-25T01:06:00.214Z,
+  "previousState": "decrepit state",
+  "state": "fancy state",
+}
+`;
+
+exports[`Entity base class setState() Assigns state 1`] = `
+Object {
+  "attributes": Object {
+    "fancy": true,
+  },
+  "lastChange": 2023-09-24T21:58:06.307Z,
+  "lastUpdate": 2023-09-25T01:06:00.214Z,
+  "state": "fancy state",
+}
+`;

@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 const proxyquire = require('proxyquire').noPreserveCache();
 const sinon = require('sinon');
 const { expect } = require('chai');
@@ -19,11 +18,10 @@ describe('SocketConnection class', () => {
     eventOnHandlers = new Map();
 
     class EventEmitter {
-      // eslint-disable-next-line class-methods-use-this
       on(type, handler) {
         eventOnHandlers.set(type, handler);
         // to avoid await connect() hanging
-        if(type === 'connection') setTimeout(() => handler('authenticated'), 50);
+        if(type === 'connection') setTimeout(() => handler('authenticated'), 20);
       }
     }
     EventEmitter.prototype.emit = eventEmitStub;
@@ -33,7 +31,6 @@ describe('SocketConnection class', () => {
         wsConstructorStub(url);
       }
 
-      // eslint-disable-next-line class-methods-use-this
       on(type, handler) {
         wsOnHandlers.set(type, handler);
       }
