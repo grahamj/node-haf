@@ -13,17 +13,15 @@ class BooleanEntity extends Entity {
       lowHandlers: [],
       toggleHandlers: [],
     };
-  }
-
-  handleStateChange() {
-    if(this.state === 'on' && this.previousState === 'off') {
-      this[priv].highHandlers.forEach((handler) => handler(this));
-      this[priv].toggleHandlers.forEach((handler) => handler(this));
-    } else if(this.state === 'off' && this.previousState === 'on') {
-      this[priv].lowHandlers.forEach((handler) => handler(this));
-      this[priv].toggleHandlers.forEach((handler) => handler(this));
-    }
-    super.handleStateChange();
+    super.onStateChange(() => {
+      if(this.state === 'on' && this.previousState === 'off') {
+        this[priv].highHandlers.forEach((handler) => handler(this));
+        this[priv].toggleHandlers.forEach((handler) => handler(this));
+      } else if(this.state === 'off' && this.previousState === 'on') {
+        this[priv].lowHandlers.forEach((handler) => handler(this));
+        this[priv].toggleHandlers.forEach((handler) => handler(this));
+      }
+    });
   }
 
   onHigh(handler) {
