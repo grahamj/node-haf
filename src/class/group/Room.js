@@ -24,7 +24,7 @@ class Room {
   addEntity(entity) {
     Joi.assert(entity, Joi.object({
       identifier: Joi.string().required(),
-    }));
+    }).unknown());
     this.entityMap.set(entity.identifier, entity);
   }
 

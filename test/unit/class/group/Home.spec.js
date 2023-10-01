@@ -12,6 +12,18 @@ describe('Home class', () => {
       expect(home.rooms.get('fancy')).to.deep.equal(room);
     });
 
+    it('Throws if no identifier supplied', () => {
+      const config = { identifier: 'fancy home' };
+      const home = new Home(config);
+      try {
+        home.addRoom();
+      } catch(err) {
+        expect(err.message).to.match(/identifier/);
+        return;
+      }
+      throw new Error('Should not succeed');
+    });
+
   });
 
   describe('addRooms()', () => {

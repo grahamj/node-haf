@@ -9,13 +9,6 @@ class MediaPlayer extends Entity {
     });
   }
 
-  async callService(options) {
-    return super.callService({
-      domain: 'media_player',
-      ...options,
-    });
-  }
-
 }
 
 module.exports = MediaPlayer;

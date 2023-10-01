@@ -1,3 +1,5 @@
+const Joi = require('joi');
+
 class Home {
 
   constructor() {
@@ -5,6 +7,9 @@ class Home {
   }
 
   addRoom(room) {
+    Joi.assert(room, Joi.object({
+      identifier: Joi.string().required(),
+    }).unknown());
     this.rooms.set(room.identifier, room);
   }
 

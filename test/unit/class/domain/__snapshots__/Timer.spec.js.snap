@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Timer class cancel() Calls service with proper params 1`] = `
+Array [
+  Object {
+    "domain": "timer",
+    "service": "cancel",
+    "target": Object {
+      "entity_id": "fancy",
+    },
+  },
+]
+`;
+
+exports[`Timer class finish() Calls service with proper params 1`] = `
+Array [
+  Object {
+    "domain": "timer",
+    "service": "finish",
+    "target": Object {
+      "entity_id": "fancy",
+    },
+  },
+]
+`;
+
+exports[`Timer class start() Calls service with proper params, duration specified 1`] = `
+Array [
+  Object {
+    "domain": "timer",
+    "service": "start",
+    "service_data": Object {
+      "duration": 5,
+    },
+    "target": Object {
+      "entity_id": "fancy",
+    },
+  },
+]
+`;
+
+exports[`Timer class start() Calls service with proper params, no duration 1`] = `
+Array [
+  Object {
+    "domain": "timer",
+    "service": "start",
+    "target": Object {
+      "entity_id": "fancy",
+    },
+  },
+]
+`;
