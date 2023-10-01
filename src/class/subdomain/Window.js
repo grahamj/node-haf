@@ -3,11 +3,11 @@ const BinarySensor = require('../domain/BinarySensor.js');
 class Window extends BinarySensor {
 
   onOpen(handler) {
-    this.onHigh(handler);
+    return super.onHigh(handler);
   }
 
   onClose(handler) {
-    this.onLow(handler);
+    return super.onLow(handler);
   }
 
 }

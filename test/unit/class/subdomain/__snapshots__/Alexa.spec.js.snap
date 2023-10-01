@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Alexa class say() Calls service with proper args 1`] = `
+Array [
+  Object {
+    "domain": "notify",
+    "service": "alexa_media",
+    "service_data": Object {
+      "message": "Hi!",
+      "target": "fancy entity",
+    },
+  },
+]
+`;

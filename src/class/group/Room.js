@@ -15,17 +15,21 @@ class Room {
       identifier: Joi.string().required(),
       entities: Joi.array(),
     }));
-    Object.assign(this, config);
+    this.identifier = config.identifier;
     if(config.entities) {
       config.entities.forEach(this.addEntity.bind(this));
     }
   }
 
   addEntity(entity) {
+    Joi.assert(entity, Joi.object({
+      identifier: Joi.string().required(),
+    }));
     this.entityMap.set(entity.identifier, entity);
   }
 
   getEntity(identifier) {
+    Joi.assert(identifier, Joi.string().required());
     return this.entityMap.get(identifier);
   }
 

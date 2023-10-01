@@ -3,11 +3,11 @@ const BinarySensor = require('../domain/BinarySensor.js');
 class Motion extends BinarySensor {
 
   onMotion(handler) {
-    this.onHigh(handler);
+    return super.onHigh(handler);
   }
 
   onClear(handler) {
-    this.onLow(handler);
+    return super.onLow(handler);
   }
 
 }
