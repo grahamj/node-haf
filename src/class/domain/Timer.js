@@ -1,6 +1,8 @@
 const Joi = require('joi');
 const Entity = require('../base/Entity.js');
 
+const priv = Symbol('private');
+
 class Timer extends Entity {
 
   constructor(config) {
@@ -8,6 +10,33 @@ class Timer extends Entity {
       ...config,
       domain: 'timer',
     });
+    this[priv] = {
+      startHandlers: [],
+      stopHandlers: [],
+    };
+    super.onStateChange(() => {
+      if(this.state === 'active' && this.previousState === 'idle') {
+        this.triggerStart();
+      } else if(this.state === 'idle' && this.previousState === 'active') {
+        this.triggerStop();
+      }
+    });
+  }
+
+  onStart(handler) {
+    this[priv].startHandlers.push(handler);
+  }
+
+  onStop(handler) {
+    this[priv].stopHandlers.push(handler);
+  }
+
+  triggerStart() {
+    this[priv].startHandlers.forEach((handler) => handler(this));
+  }
+
+  triggerStop() {
+    this[priv].stopHandlers.forEach((handler) => handler(this));
   }
 
   async start(seconds) {
@@ -40,6 +69,10 @@ class Timer extends Entity {
         entity_id: this.entityId,
       },
     });
+  }
+
+  isRunning() {
+    return this.state === 'active';
   }
 
 }

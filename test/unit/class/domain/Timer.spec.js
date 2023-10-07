@@ -1,22 +1,34 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
-const proxyquire = require('proxyquire').noPreserveCache();
+const proxyquire = require('proxyquire')
+  .noPreserveCache().noCallThru();
 
 describe('Timer class', () => {
   let Timer;
   let constructorStub;
   let callServiceStub;
+  let onStateChangeStub;
 
   beforeEach(() => {
     constructorStub = sinon.stub();
     callServiceStub = sinon.stub();
-    class Entity {
+    onStateChangeStub = sinon.stub();
+    callServiceStub = sinon.stub();
+
+    const Entity = class {
       constructor(...args) {
         this.entityId = args[0].entityId;
         constructorStub(...args);
       }
-    }
-    Entity.prototype.callService = callServiceStub;
+
+      onStateChange(...args) {
+        onStateChangeStub(...args);
+      }
+
+      callService(...args) {
+        callServiceStub(...args);
+      }
+    };
     Timer = proxyquire('../../../../src/class/domain/Timer', {
       '../base/Entity.js': Entity,
     });

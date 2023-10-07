@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
-const proxyquire = require('proxyquire').noPreserveCache();
+const proxyquire = require('proxyquire')
+  .noPreserveCache().noCallThru();
 
 describe('Virtual class', () => {
   let Virtual;

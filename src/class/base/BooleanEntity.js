@@ -5,9 +5,7 @@ const priv = Symbol('private');
 class BooleanEntity extends Entity {
 
   constructor(config) {
-    super({
-      ...config,
-    });
+    super(config);
     this[priv] = {
       highHandlers: [],
       lowHandlers: [],
@@ -15,11 +13,9 @@ class BooleanEntity extends Entity {
     };
     super.onStateChange(() => {
       if(this.state === 'on' && this.previousState === 'off') {
-        this[priv].highHandlers.forEach((handler) => handler(this));
-        this[priv].toggleHandlers.forEach((handler) => handler(this));
+        this.triggerHigh();
       } else if(this.state === 'off' && this.previousState === 'on') {
-        this[priv].lowHandlers.forEach((handler) => handler(this));
-        this[priv].toggleHandlers.forEach((handler) => handler(this));
+        this.triggerLow();
       }
     });
   }
@@ -34,6 +30,20 @@ class BooleanEntity extends Entity {
 
   onToggle(handler) {
     this[priv].toggleHandlers.push(handler);
+  }
+
+  triggerHigh() {
+    this[priv].highHandlers.forEach((handler) => handler(this));
+    this.triggerToggle();
+  }
+
+  triggerLow() {
+    this[priv].lowHandlers.forEach((handler) => handler(this));
+    this.triggerToggle();
+  }
+
+  triggerToggle() {
+    this[priv].toggleHandlers.forEach((handler) => handler(this));
   }
 
 }

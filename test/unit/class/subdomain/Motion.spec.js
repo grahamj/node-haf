@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
-const proxyquire = require('proxyquire').noPreserveCache();
+const proxyquire = require('proxyquire')
+  .noPreserveCache().noCallThru();
 
 describe('Motion class', () => {
   let Motion;
@@ -18,11 +19,11 @@ describe('Motion class', () => {
     });
   });
 
-  describe('onMotion()', () => {
+  describe('onDetect()', () => {
 
     it('Calls onHigh with same args', () => {
       const motion = new Motion();
-      motion.onMotion('fancy');
+      motion.onDetect('fancy');
       expect(onHighStub.firstCall.args[0]).to.equal('fancy');
     });
 

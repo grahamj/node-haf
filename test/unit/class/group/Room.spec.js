@@ -43,11 +43,32 @@ describe('Room class', () => {
       expect(room.entityMap.get('fancy')).to.deep.equal(entity);
     });
 
-    it('Throws if no identifier supplied', () => {
+    it('Saves config', () => {
+      const roomConfig = { identifier: 'fancy room' };
+      const room = new Room(roomConfig);
+      const entity = { identifier: 'fancy' };
+      const config = { fancy: true };
+      room.addEntity(entity, config);
+      expect(room.configMap.get('fancy')).to.deep.equal(config);
+    });
+
+    it('Throws if no entity supplied', () => {
       const config = { identifier: 'fancy room' };
       const room = new Room(config);
       try {
         room.addEntity();
+      } catch(err) {
+        expect(err.message).to.match(/required/);
+        return;
+      }
+      throw new Error('Should not succeed');
+    });
+
+    it('Throws if no identifier supplied', () => {
+      const config = { identifier: 'fancy room' };
+      const room = new Room(config);
+      try {
+        room.addEntity({});
       } catch(err) {
         expect(err.message).to.match(/identifier/);
         return;

@@ -7,6 +7,11 @@ const priv = Symbol('private');
 class Entity {
 
   constructor(config = {}) {
+    Joi.assert(config, Joi.object({
+      identifier: Joi.string().required(),
+      entityId: Joi.string().required(),
+      domain: Joi.string().required(),
+    }).unknown());
     this[priv] = {
       stateChangeHandlers: [],
     };
@@ -20,11 +25,6 @@ class Entity {
       lastUpdate: undefined,
       event: undefined,
     });
-    Joi.assert(config, Joi.object({
-      identifier: Joi.string().required(),
-      entityId: Joi.string().required(),
-      domain: Joi.string().required(),
-    }).unknown());
     const { identifier, domain, entityId } = config;
     Object.assign(this, {
       identifier,

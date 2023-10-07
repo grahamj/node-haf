@@ -17,6 +17,26 @@ class Light extends Entity {
     this.onLow(handler);
   }
 
+  async turnOn() {
+    return super.callService({
+      domain: 'light',
+      service: 'turn_on',
+      target: {
+        entity_id: this.entityId,
+      },
+    });
+  }
+
+  async turnOff() {
+    return super.callService({
+      domain: 'light',
+      service: 'turn_off',
+      target: {
+        entity_id: this.entityId,
+      },
+    });
+  }
+
 }
 
 module.exports = Light;
