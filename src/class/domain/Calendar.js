@@ -1,14 +1,14 @@
 const BooleanEntity = require('../base/BooleanEntity.js');
 
-class InputBoolean extends BooleanEntity {
+class Calendar extends BooleanEntity {
 
   constructor(config) {
     super({
       ...config,
-      domain: 'input_boolean',
+      domain: 'calendar',
     });
   }
 
 }
 
-module.exports = InputBoolean;
+module.exports = Calendar;

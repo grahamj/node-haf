@@ -46,6 +46,28 @@ class BooleanEntity extends Entity {
     this[priv].toggleHandlers.forEach((handler) => handler(this));
   }
 
+  isHigh() {
+    if(typeof this.state !== 'string') return;
+    const state = this.state.toLowerCase();
+    if(state === 'on') return true;
+    if(state === 'off') return false;
+  }
+
+  isLow() {
+    if(typeof this.state !== 'string') return;
+    const state = this.state.toLowerCase();
+    if(state === 'on') return false;
+    if(state === 'off') return true;
+  }
+
+  isOn() {
+    return this.isHigh();
+  }
+
+  isOff() {
+    return this.isLow();
+  }
+
 }
 
 module.exports = BooleanEntity;

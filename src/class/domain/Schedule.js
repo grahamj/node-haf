@@ -9,14 +9,6 @@ class Schedule extends BooleanEntity {
     });
   }
 
-  isOn() {
-    return this.state ? this.state.toLowerCase() === 'on' : undefined;
-  }
-
-  isOff() {
-    return this.state ? this.state.toLowerCase() === 'off' : undefined;
-  }
-
 }
 
 module.exports = Schedule;
