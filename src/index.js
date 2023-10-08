@@ -8,10 +8,12 @@ const Button = require('./class/domain/Button.js');
 const Counter = require('./class/domain/Counter.js');
 const InputBoolean = require('./class/domain/InputBoolean.js');
 const InputButton = require('./class/domain/InputButton.js');
+const InputNumber = require('./class/domain/InputNumber.js');
 const InputText = require('./class/domain/InputText.js');
 const Light = require('./class/domain/Light.js');
 const MediaPlayer = require('./class/domain/MediaPlayer.js');
 const Sensor = require('./class/domain/Sensor.js');
+const Schedule = require('./class/domain/Schedule.js');
 const Timer = require('./class/domain/Timer.js');
 const Alexa = require('./class/subdomain/Alexa.js');
 const BooleanEntity = require('./class/base/BooleanEntity.js');
@@ -38,10 +40,12 @@ module.exports = {
     Counter,
     InputBoolean,
     InputButton,
+    InputNumber,
     InputText,
     Light,
     MediaPlayer,
     Sensor,
+    Schedule,
     Timer,
   },
   subdomain: {
